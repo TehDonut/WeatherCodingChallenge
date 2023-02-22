@@ -126,7 +126,7 @@ fun NowWeather(
         ) {
             Text(
                 text = stringResource(
-                    id = R.string.home_text_celsius_high_low,
+                    id = R.string.home_text_fahrenheit_high_low,
                     currentWeather.maxTemp,
                     currentWeather.minTemp,
                 ),
@@ -259,7 +259,7 @@ fun Degrees(
             Column(modifier = Modifier.alignBy(LastBaseline)) {
                 Text(text = "o", modifier = Modifier.padding(bottom = 10.dp))
 
-                Text(text = "c")
+                Text(text = "F")
             }
         }
 
