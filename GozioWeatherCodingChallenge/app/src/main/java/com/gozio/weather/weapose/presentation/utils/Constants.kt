@@ -16,10 +16,12 @@ object Constants {
         const val FROM_ROUTE = "from_route"
         const val ADDRESS_NAME = "address_name"
         const val APP_ID = "appid"
+        const val UNITS = "units"
     }
 
     object Default {
         val LAT_LNG_DEFAULT = LatLng(33.78591032377107, -84.40964058633683)
     }
+    const val WEATHER_API_BASE_URL = "https://api.openweathermap.org/data/2.5/"
     const val API_KEY = "3aa158b2f14a9f493a8c725f8133d704"
 }

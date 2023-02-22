@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.sharp.LocationOn
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,7 +37,6 @@ import com.gozio.weather.weapose.presentation.model.factory.previewCurrentWeathe
 import com.gozio.weather.weapose.presentation.theme.WeaposeTheme
 import com.gozio.weather.weapose.presentation.ui.WeatherAppState
 import com.gozio.weather.weapose.presentation.utils.Constants.Default.LAT_LNG_DEFAULT
-import javax.inject.Inject
 
 @OptIn(
     ExperimentalPermissionsApi::class,
@@ -49,12 +49,12 @@ fun CurrentWeather(
     appState: WeatherAppState,
     viewModel: CurrentWeatherViewModel
 ) {
-
-    viewModel.getWeather(LAT_LNG_DEFAULT.latitude, LAT_LNG_DEFAULT.longitude)
+    LaunchedEffect(viewModel.currentWeather) {
+        viewModel.getWeather(LAT_LNG_DEFAULT.latitude, LAT_LNG_DEFAULT.longitude)
+    }
     CurrentWeatherScreen(
         state = CurrentWeatherViewState.Success(CurrentWeatherMapper().mapToViewData(viewModel.currentWeather.value))
     )
-
 }
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)

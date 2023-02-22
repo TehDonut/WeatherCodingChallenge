@@ -18,7 +18,6 @@ class MainActivity : ComponentActivity() {
         val viewModel = ViewModelProvider(this, CurrentWeatherViewModelFactory(WeatherRepository())).get(
             CurrentWeatherViewModel::class.java)
 
-
         setContent {
             WeaposeTheme {
                 WeatherApp(viewModel = viewModel)
