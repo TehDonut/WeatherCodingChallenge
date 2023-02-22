@@ -12,6 +12,7 @@ import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.gozio.weather.weapose.presentation.ui.home.CurrentWeather
 import com.gozio.weather.weapose.presentation.ui.splash.Splash
+import com.gozio.weather.weapose.presentation.ui.home.CurrentWeatherViewModel
 import kotlinx.coroutines.CoroutineScope
 
 sealed class Screen(val route: String) {
@@ -53,7 +54,7 @@ fun NavGraphBuilder.splash(appState: WeatherAppState) {
 }
 
 @OptIn(ExperimentalAnimationApi::class)
-fun NavGraphBuilder.home(appState: WeatherAppState) {
+fun NavGraphBuilder.home(appState: WeatherAppState, viewModel: CurrentWeatherViewModel) {
     navigation(
         route = NestedGraph.HOME.route,
         startDestination = Screen.CurrentWeather.route,
@@ -74,7 +75,8 @@ fun NavGraphBuilder.home(appState: WeatherAppState) {
             },
         ) {
             CurrentWeather(
-                appState = appState
+                appState = appState,
+                viewModel = viewModel
             )
         }
     }

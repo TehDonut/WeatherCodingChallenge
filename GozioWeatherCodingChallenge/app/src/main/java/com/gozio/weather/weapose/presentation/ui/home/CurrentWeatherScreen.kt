@@ -12,14 +12,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.sharp.LocationOn
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.LastBaseline
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -29,34 +27,40 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.gozio.weather.weapose.R
+import com.gozio.weather.weapose.presentation.model.CurrentWeatherMapper
 import com.gozio.weather.weapose.presentation.model.CurrentWeatherViewData
 import com.gozio.weather.weapose.presentation.model.CurrentWeatherViewState
 import com.gozio.weather.weapose.presentation.model.factory.previewCurrentWeatherViewData
 import com.gozio.weather.weapose.presentation.theme.WeaposeTheme
 import com.gozio.weather.weapose.presentation.ui.WeatherAppState
+import com.gozio.weather.weapose.presentation.utils.Constants.Default.LAT_LNG_DEFAULT
+import javax.inject.Inject
 
 @OptIn(
     ExperimentalPermissionsApi::class,
     ExperimentalLifecycleComposeApi::class,
 )
 
+
 @Composable
 fun CurrentWeather(
     appState: WeatherAppState,
+    viewModel: CurrentWeatherViewModel
 ) {
+
+    viewModel.getWeather(LAT_LNG_DEFAULT.latitude, LAT_LNG_DEFAULT.longitude)
     CurrentWeatherScreen(
-        state = CurrentWeatherViewState.Success(previewCurrentWeatherViewData())
+        state = CurrentWeatherViewState.Success(CurrentWeatherMapper().mapToViewData(viewModel.currentWeather.value))
     )
+
 }
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CurrentWeatherScreen(
-    state: CurrentWeatherViewState,
+    state: CurrentWeatherViewState
 ) {
     when (state) {
         is CurrentWeatherViewState.Loading -> CircularProgressIndicator()

@@ -9,15 +9,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalFocusManager
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.gozio.weather.weapose.presentation.ui.home.CurrentWeatherViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @Composable
-fun WeatherApp(appState: WeatherAppState = rememberWeatherAppState()) {
+fun WeatherApp(appState: WeatherAppState = rememberWeatherAppState(), viewModel: CurrentWeatherViewModel) {
     val systemUiController = rememberSystemUiController()
     val darkIcons = isSystemInDarkTheme()
 
@@ -38,7 +37,7 @@ fun WeatherApp(appState: WeatherAppState = rememberWeatherAppState()) {
         ) {
             splash(appState)
 
-            home(appState)
+            home(appState,viewModel)
         }
     }
 }
